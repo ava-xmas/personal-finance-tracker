@@ -5,16 +5,7 @@ import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWith
 // firestore
 import { getFirestore, setDoc, doc, addDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 import { capitalize } from "./utils.js";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyCNGtAzlRth4LNEzEXbHKvPFcBs6h3X7R4",
-    authDomain: "finance-tracker-1739e.firebaseapp.com",
-    projectId: "finance-tracker-1739e",
-    storageBucket: "finance-tracker-1739e.firebasestorage.app",
-    messagingSenderId: "290232509151",
-    appId: "1:290232509151:web:63e8bd4ca198af3493ff6a",
-    measurementId: "G-E1YCYJMWLH"
-};
+import { firebaseConfig } from "./env.js";
 
 // initialize Firebase
 const app = initializeApp(firebaseConfig);
