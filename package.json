@@ -1,0 +1,23 @@
+{
+  "name": "finance-tracker",
+  "version": "1.0.0",
+  "description": "Frontend - React (Vite)  Styling - Tailwind CSS State Management - Context API + useReducer Database - Firebase firestore Charts - Recharts Auth - Firebase Authentication Deployment - Vercel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ava-xmas/personal-finance-tracker.git"
+  },
+  "author": "avantika",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ava-xmas/personal-finance-tracker/issues"
+  },
+  "homepage": "https://github.com/ava-xmas/personal-finance-tracker#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "serve-index": "^1.9.1"
+  }
+}

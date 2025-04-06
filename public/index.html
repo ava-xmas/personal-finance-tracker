@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Finance Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-DQvkBjpPgn7RC31MCQoOeC9TI2kdqa4+BSgNMNj8v77fdC77Kj5zpWFTJaaAoMbC" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container-xxl">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Pincer</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Add</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Graphs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">History</a>
+                        </li>
+                    </ul>
+                    <span id="navbar-text">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#signupModal">
+                            Sign Up
+                        </button>
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#loginModal">
+                            Log In
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+        <div class="transaction-form py-5 my-5 border border-dark rounded-2">
+
+            <h3 class="text-center pb-3">Log Your Expenses / Income</h3>
+
+            <div class="row py-2">
+                <div class="col"></div>
+                <div class="col">
+                    <label for="description" class="form-label">Description</label>
+                    <input type="text" id="description" class="form-control" aria-describedby="descriptionHelpBlock"
+                        value="">
+                    <div id="descriptionHelpBlock" class="form-text">
+                        What exactly are you spending on?
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="category" class="form-label">Category</label>
+                    <select id="category" class="form-select" aria-label="Default select example">
+                        <option selected value="None">None</option>
+                        <option value="Food">Food</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Beauty">Beauty</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Medical">Medical</option>
+                        <option value="Education">Education</option>
+                    </select>
+                    <div id="categoryHelpBlock" class="form-text">
+                        Choose a category!
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row py-2">
+                <div class="col"></div>
+                <div class="col">
+                    <label for="amount" class="form-label">Amount</label>
+                    <input type="number" id="amount" class="form-control" aria-describedby="amountHelpBlock" value="0">
+                    <div id="amountHelpBlock" class="form-text">
+                        Enter the amount.
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="inputPassword5" class="form-label">Type</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault1"
+                            value="Income">
+                        <label class="form-check-label" for="radioDefault1">
+                            Income
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault2" checked
+                            value="Expense">
+                        <label class="form-check-label" for="radioDefault2">
+                            Expense
+                        </label>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row py-2">
+                <div class="col-3"></div>
+                <div class="col-6 d-grid gap-2">
+                    <button id="submitTransaction" class="btn btn-primary" type="button">Submit</button>
+                </div>
+
+                <div class="col-3"></div>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="history-graph py-5 my-5 border border-dark rounded-2">
+
+            <h4 class="text-center pb-3">History</h4>
+            <button id="history-heading">Get History</button>
+            <div class="history-table px-2">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <!-- <th scope="col">#</th> -->
+                            <th scope="col">Category</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Sign Up Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="signupModalLabel">Sign Up</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <div id="signup-error"></div>
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="signupInputEmail" aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="signupInputPassword">
+                        </div>
+
+
+                    </form>
+                    <button type="submit" id="submitSignup" class="btn btn-primary">Submit</button>
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Log In Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="loginModalLabel">Log In</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <div id="login-error"></div>
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="loginInputEmail" aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">Welcome back!</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginInputPassword">
+                        </div>
+
+                        <button type="submit" id="submitLogin" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YUe2LzesAfftltw+PEaao2tjU/QATaW/rOitAq67e0CT0Zi2VVRL0oC4+gAaeBKu"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.min.js"
+        integrity="sha384-Re460s1NeyAhufAM5JwfIGWosokaQ7CH15ti6W5Y4wC/m4eJ5opJ2ivohxVM05Wd"
+        crossorigin="anonymous"></script>
+    <script src="./js/utils.js" type="module"></script>
+    <script src="../js/firebase.js" type="module"></script>
+    <script src="./app.js" type="module"></script>
+</body>
+
+</html>
