@@ -1,7 +1,7 @@
 {
   "name": "finance-tracker",
   "version": "1.0.0",
-  "description": "Frontend - React (Vite)  Styling - Tailwind CSS State Management - Context API + useReducer Database - Firebase firestore Charts - Recharts Auth - Firebase Authentication Deployment - Vercel",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ava-xmas/personal-finance-tracker#readme",
   "dependencies": {
+    "chart.js": "^4.4.8",
     "express": "^5.1.0",
     "serve-index": "^1.9.1"
   }

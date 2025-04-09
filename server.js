@@ -17,6 +17,9 @@ app.use('/request-type', (req, res, next) => {
 // serve static files from the public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+// use node modules
+app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
+
 // default route to send the index.html file when someone visits the root URL
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));

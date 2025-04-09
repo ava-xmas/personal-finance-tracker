@@ -7,6 +7,7 @@
     <title>Finance Tracker</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-DQvkBjpPgn7RC31MCQoOeC9TI2kdqa4+BSgNMNj8v77fdC77Kj5zpWFTJaaAoMbC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/bootstrap-datepicker.min.css">
 </head>
 
 <body>
@@ -54,77 +55,94 @@
         <div class="transaction-form py-5 my-5 border border-dark rounded-2">
 
             <h3 class="text-center pb-3">Log Your Expenses / Income</h3>
+            <form action="">
 
-            <div class="row py-2">
-                <div class="col"></div>
-                <div class="col">
-                    <label for="description" class="form-label">Description</label>
-                    <input type="text" id="description" class="form-control" aria-describedby="descriptionHelpBlock"
-                        value="">
-                    <div id="descriptionHelpBlock" class="form-text">
-                        What exactly are you spending on?
+                <div class="row py-2">
+                    <div class="col"></div>
+                    <div class="col">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" id="description" class="form-control" aria-describedby="descriptionHelpBlock"
+                            value="" required>
+                        <div id="descriptionHelpBlock" class="form-text">
+                            What exactly are you spending on?
+                        </div>
                     </div>
+                    <div class="col">
+                        <label for="category" class="form-label">Category</label>
+                        <select id="category" class="form-select" aria-label="Default select example">
+                            <option selected value="None">None</option>
+                            <option value="Food">Food</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Beauty">Beauty</option>
+                            <option value="Transport">Transport</option>
+                            <option value="Medical">Medical</option>
+                            <option value="Education">Education</option>
+                        </select>
+                        <div id="categoryHelpBlock" class="form-text">
+                            Choose a category!
+                        </div>
+                    </div>
+                    <div class="col"></div>
                 </div>
-                <div class="col">
-                    <label for="category" class="form-label">Category</label>
-                    <select id="category" class="form-select" aria-label="Default select example">
-                        <option selected value="None">None</option>
-                        <option value="Food">Food</option>
-                        <option value="Entertainment">Entertainment</option>
-                        <option value="Beauty">Beauty</option>
-                        <option value="Transport">Transport</option>
-                        <option value="Medical">Medical</option>
-                        <option value="Education">Education</option>
-                    </select>
-                    <div id="categoryHelpBlock" class="form-text">
-                        Choose a category!
+                <div class="row py-2">
+                    <div class="col"></div>
+                    <div class="col">
+                        <label for="amount" class="form-label">Amount</label>
+                        <input type="number" id="amount" class="form-control" aria-describedby="amountHelpBlock"
+                            value="0" required>
+                        <div id="amountHelpBlock" class="form-text">
+                            Enter the amount.
+                        </div>
                     </div>
+                    <div class="col">
+                        <label for="inputPassword5" class="form-label">Type</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault1"
+                                value="Income">
+                            <label class="form-check-label" for="radioDefault1">
+                                Income
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault2" checked
+                                value="Expense">
+                            <label class="form-check-label" for="radioDefault2">
+                                Expense
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col"></div>
                 </div>
-                <div class="col"></div>
-            </div>
-            <div class="row py-2">
-                <div class="col"></div>
-                <div class="col">
-                    <label for="amount" class="form-label">Amount</label>
-                    <input type="number" id="amount" class="form-control" aria-describedby="amountHelpBlock" value="0">
-                    <div id="amountHelpBlock" class="form-text">
-                        Enter the amount.
+                <div class="row py-2">
+                    <div class="col-3"></div>
+                    <div class="py-2 col-6" id="date-picker">
+                        <label for="date">Date</label> <br>
+                        <input type="text" id="date" required>
+                        <div id="amountHelpBlock" class="form-text">
+                            Choose a date for the transaction.
+                        </div>
                     </div>
-                </div>
-                <div class="col">
-                    <label for="inputPassword5" class="form-label">Type</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault1"
-                            value="Income">
-                        <label class="form-check-label" for="radioDefault1">
-                            Income
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault2" checked
-                            value="Expense">
-                        <label class="form-check-label" for="radioDefault2">
-                            Expense
-                        </label>
-                    </div>
-                </div>
-                <div class="col"></div>
-            </div>
-            <div class="row py-2">
-                <div class="col-3"></div>
-                <div class="col-6 d-grid gap-2">
-                    <button id="submitTransaction" class="btn btn-primary" type="button">Submit</button>
+                    <div class="col-3"></div>
                 </div>
 
-                <div class="col-3"></div>
-            </div>
+                <div class="row py-2">
+                    <div class="col-3"></div>
+                    <div class="col-6 d-grid gap-2">
+                        <span id="transaction-error"></span>
+                        <input id="submitTransaction" value="Submit" class="btn btn-primary" type="submit">
+                    </div>
+
+                    <div class="col-3"></div>
+                </div>
+            </form>
         </div>
 
 
 
 
 
-        <div class="history-graph py-5 my-5 border border-dark rounded-2">
+
+        <div class="history py-5 my-5 border border-dark rounded-2">
 
             <h4 class="text-center pb-3">History</h4>
             <!-- <button id="history-heading">Get History</button> -->
@@ -145,20 +163,38 @@
                 </table>
             </div>
         </div>
+
+        <div class="graph py-5 my-5 border border-dark rounded-2">
+            <h4 class="text-center pb-3">Graphs</h4>
+
+            <div id="carouselExampleFade" class="carousel slide carousel-fade">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <canvas class="d-flex flex-row justify-content-center align-items-center"
+                            id="acquisitions"></canvas>
+                    </div>
+                    <div class="carousel-item">
+                        <canvas class="d-flex flex-row justify-content-center align-items-center"
+                            id="acquisitions"></canvas>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="..." class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -256,9 +292,10 @@
 
 
 
-
-
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YUe2LzesAfftltw+PEaao2tjU/QATaW/rOitAq67e0CT0Zi2VVRL0oC4+gAaeBKu"
         crossorigin="anonymous"></script>
@@ -268,9 +305,44 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.min.js"
         integrity="sha384-Re460s1NeyAhufAM5JwfIGWosokaQ7CH15ti6W5Y4wC/m4eJ5opJ2ivohxVM05Wd"
         crossorigin="anonymous"></script>
+    <script src="./js-date/bootstrap-datepicker.min.js"></script>
     <script src="./js/utils.js" type="module"></script>
     <script src="../js/firebase.js" type="module"></script>
     <script src="./app.js" type="module"></script>
+    <script src="./js/charts.js" type="module"></script>
+    <script>
+        (async function () {
+            const data = [
+                { year: 2010, count: 10 },
+                { year: 2011, count: 9 },
+                { year: 2012, count: 33 },
+                { year: 2013, count: 54 },
+                { year: 2014, count: 12 },
+                { year: 2015, count: 78 },
+                { year: 2016, count: 55 },
+                { year: 2017, count: 28 },
+            ];
+
+            new Chart(
+                document.getElementById("acquisitions"),
+                {
+                    type: 'bar',
+                    data: {
+                        labels: data.map(row => row.year),
+                        datasets: [
+                            {
+                                label: 'Acquisition by year',
+                                data: data.map(row => row.count)
+                            }
+                        ]
+                    }
+                }
+            );
+        })();
+    </script>
+    <script>
+        $('#date').datepicker();
+    </script>
 </body>
 
 </html>

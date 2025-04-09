@@ -118,6 +118,7 @@ submitLogin.addEventListener('click', (event) => {
 
 const submitTransaction = document.getElementById("submitTransaction");
 submitTransaction.addEventListener("click", async (event) => {
+    event.preventDefault();
 
     // getting the values from the input fields
     const description = document.getElementById("description").value;
@@ -136,29 +137,40 @@ submitTransaction.addEventListener("click", async (event) => {
     }
     const type = selectedValue;
 
-    console.log(description, category, amount, type);
+    const date = document.getElementById("date").value;
 
-    const user = auth.currentUser;
+    console.log(description, category, amount, type, date);
+    console.log("Doc not yet added.");
 
-    if (user) {
-        try {
-            const docRef = await addDoc(collection(db, "transactions"), {
-                amount: amount,
-                category: category.toLowerCase(),
-                description: description,
-                type: type,
-                createdAt: new Date(),
-                date: new Date(),
-            });
-            console.log("Doc added", docRef);
-            document.getElementById("description").value = "";
-            document.getElementById("category").value = "None";
-            document.getElementById("amount").value = 0;
-        } catch (error) {
-            console.log("Error adding document: ", error);
-        }
+    // adding checks to see if the user has left some fields empty
+    const transactionError = document.getElementById("transaction-error");
+
+    if (description == null || description == " ") {
+        transactionError.innerHTML = "You cannot leave the description field empty."
+    } else if (amount == 0 || amount == NaN) {
+        transactionError.innerHTML = "You cannot leave the amount empty or zero."
     } else {
-        console.log("No user is logged in.");
+        const user = auth.currentUser;
+        if (user) {
+            try {
+                const docRef = await addDoc(collection(db, "transactions"), {
+                    amount: amount,
+                    category: category.toLowerCase(),
+                    description: description,
+                    type: type,
+                    createdAt: new Date(),
+                    date: date,
+                });
+                console.log("Doc added", docRef);
+                document.getElementById("description").value = "";
+                document.getElementById("category").value = "None";
+                document.getElementById("amount").value = 0;
+            } catch (error) {
+                console.log("Error adding document: ", error);
+            }
+        } else {
+            console.log("No user is logged in.");
+        }
     }
 });
 
@@ -171,11 +183,19 @@ const deleteIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="1
 </svg>`;
 const tableClass = "text-center"
 
+export const getDocsFromFirebase = async () => {
+    let q = query(collection(db, "transactions"), where("amount", "!=", 0));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot;
+}
+
 export const getHistory = async () => {
-    console.log("Inside the get history function")
+    console.log("Inside the get history function");
     const q = query(collection(db, "transactions"), where("amount", "!=", 0));
     try {
-        const querySnapshot = await getDocs(q);
+        // const querySnapshot = await getDocs(q);
+        const querySnapshot = await getDocsFromFirebase();
+        console.log(querySnapshot);
         querySnapshot.forEach((doc) => {
             console.log(doc.id, "=>", doc.data());
         });
@@ -191,7 +211,7 @@ export const getHistory = async () => {
                 <td class=${tableClass}>${capitalize(doc.data().category)}</td>
                 <td class=${tableClass}>${doc.data().amount}</td>
                 <td class=${tableClass}>${doc.data().description}</td>
-                <td class=${tableClass}>${(new Date(doc.data().date)).toString().slice(0, 25)}</td>
+                <td class=${tableClass}>${(new Date(doc.data().date)).toString().slice(0, 15)}</td>
                 <td class=${tableClass}><button type="button" class="btn btn-primary" id="delete-${doc.id}">${deleteIcon}</button></td>
                 </tr>
                 `;
@@ -203,6 +223,11 @@ export const getHistory = async () => {
 
     }
 }
+
+// date picker
+
+// const datePicker = document.getElementById("date-picker");
+// datePicker.innerHTML =
 
 // const historyHeading = document.getElementById("history-heading");
 // historyHeading.addEventListener('click', getHistory);
