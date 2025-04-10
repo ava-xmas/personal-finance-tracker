@@ -135,7 +135,7 @@ submitTransaction.addEventListener("click", async (event) => {
             break;
         }
     }
-    const type = selectedValue;
+    const type = "Expense";
 
     const date = document.getElementById("date").value;
 
@@ -223,11 +223,3 @@ export const getHistory = async () => {
 
     }
 }
-
-// date picker
-
-// const datePicker = document.getElementById("date-picker");
-// datePicker.innerHTML =
-
-// const historyHeading = document.getElementById("history-heading");
-// historyHeading.addEventListener('click', getHistory);

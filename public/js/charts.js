@@ -1,53 +1,27 @@
 import { findPastSixMonths, findMonth, Transaction, capitalize } from "./utils.js";
 import { getDocsFromFirebase } from "./firebase.js";
 
-// import { Chart } from "../../node_modules/chart.js/dist/chart.js";
-
-// (async function () {
-//     const data = [
-//         { year: 2010, count: 10 },
-//         { year: 2011, count: 9 },
-//         { year: 2012, count: 33 },
-//         { year: 2013, count: 54 },
-//         { year: 2014, count: 12 },
-//         { year: 2015, count: 78 },
-//         { year: 2016, count: 55 },
-//         { year: 2017, count: 28 },
-//     ];
-
-//     new Chart(
-//         document.getElementById("acquisitions"),
-//         {
-//             type: 'bar',
-//             data: {
-//                 labels: data.map(row => row.year),
-//                 datasets: [
-//                     {
-//                         label: 'Acquisition by year',
-//                         data: data.map(row => row.count)
-//                     }
-//                 ]
-//             }
-//         }
-//     );
-// })();
-
+// getting the value of current month
 let currentMonth = (new Date()).toString().slice(4, 7);
 // console.log(currentMonth);
+
+// finding the past six months from the current month
 let pastMonthsList = findPastSixMonths(currentMonth);
 
+// getting docs from firebase
 const querySnapshot = await getDocsFromFirebase();
-const transactionObj = {};
-console.log("Hi!!");
 
+// creating the object and keys that will store the Transactions for each month
+const transactionObj = {};
 for (let month of pastMonthsList) {
     transactionObj[month] = [];
 }
 
+// adding the values to that object
 querySnapshot.forEach((doc) => {
-    console.log(doc.data());
+    // console.log(doc.data());
     let month = findMonth(doc);
-    console.log(month);
+    // console.log(month);
     let data = doc.data();
 
     // add the transaction object to the corresponding month array
@@ -56,5 +30,132 @@ querySnapshot.forEach((doc) => {
     }
 })
 
-console.log(querySnapshot);
-console.log(transactionObj, "new");
+
+const categoryList = ["None", "Food", "Entertainment", "Beauty", "Transport", "Medical", "Education"];
+const monthWiseData = {};
+
+// initializing monthwisedata with categories and amount = 0
+for (let month of pastMonthsList) {
+    monthWiseData[month] = categoryList.map(category => ({
+        category: category,
+        amount: 0
+    }));
+}
+
+querySnapshot.forEach((doc) => {
+    let data = doc.data();
+    let month = findMonth(doc);
+    console.log(month);
+    let category = data.category;
+    console.log(category);
+
+    // find the corresponding category in the current month and update the amount
+    if (monthWiseData[month]) {
+        monthWiseData[month].forEach((item) => {
+            if (item.category == capitalize(category)) {
+                // add the amount to the corresponding category
+                item.amount += data.amount;
+            }
+        });
+    }
+});
+
+console.log(monthWiseData);
+
+console.log(monthWiseData[pastMonthsList[5]]);
+
+new Chart(
+    document.getElementById('chart1'),
+    {
+        type: 'bar',
+        data: {
+            labels: monthWiseData[pastMonthsList[5]].map(row => row.category),
+            datasets: [
+                {
+                    label: `Amount spent by month in ${pastMonthsList[5]}`,
+                    data: monthWiseData[pastMonthsList[5]].map(row => row.amount),
+                }
+            ]
+        }
+    }
+);
+
+new Chart(
+    document.getElementById('chart2'),
+    {
+        type: 'bar',
+        data: {
+            labels: monthWiseData[pastMonthsList[4]].map(row => row.category),
+            datasets: [
+                {
+                    label: `Amount spent by month in ${pastMonthsList[4]}`,
+                    data: monthWiseData[pastMonthsList[4]].map(row => row.amount),
+                }
+            ]
+        }
+    }
+);
+
+new Chart(
+    document.getElementById('chart3'),
+    {
+        type: 'bar',
+        data: {
+            labels: monthWiseData[pastMonthsList[3]].map(row => row.category),
+            datasets: [
+                {
+                    label: `Amount spent by month in ${pastMonthsList[3]}`,
+                    data: monthWiseData[pastMonthsList[3]].map(row => row.amount),
+                }
+            ]
+        }
+    }
+);
+
+new Chart(
+    document.getElementById('chart4'),
+    {
+        type: 'bar',
+        data: {
+            labels: monthWiseData[pastMonthsList[2]].map(row => row.category),
+            datasets: [
+                {
+                    label: `Amount spent by month in ${pastMonthsList[2]}`,
+                    data: monthWiseData[pastMonthsList[2]].map(row => row.amount),
+                }
+            ]
+        }
+    }
+);
+
+new Chart(
+    document.getElementById('chart5'),
+    {
+        type: 'bar',
+        data: {
+            labels: monthWiseData[pastMonthsList[1]].map(row => row.category),
+            datasets: [
+                {
+                    label: `Amount spent by month in ${pastMonthsList[1]}`,
+                    data: monthWiseData[pastMonthsList[1]].map(row => row.amount),
+                }
+            ]
+        }
+    }
+);
+
+new Chart(
+    document.getElementById('chart6'),
+    {
+        type: 'bar',
+        data: {
+            labels: monthWiseData[pastMonthsList[0]].map(row => row.category),
+            datasets: [
+                {
+                    label: `Amount spent by month in ${pastMonthsList[0]}`,
+                    data: monthWiseData[pastMonthsList[0]].map(row => row.amount),
+                }
+            ]
+        }
+    }
+);
